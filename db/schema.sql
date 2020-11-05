@@ -8,3 +8,6 @@ CREATE TABLE cows (
   cow_name VARCHAR(50) NOT NULL,
   cow_description VARCHAR(100) NOT NULL
 );
+
+INSERT INTO `cows` (`id`, `cow_name`, `cow_description`) VALUES
+(1, 'Chris', 'Fat');
