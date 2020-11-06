@@ -10,6 +10,24 @@ class App extends React.Component {
     this.state = {
       cowList: []
     }
+    this.getCows = this.getCows.bind(this)
+
+  }
+  
+  componentDidMount() {
+    {this.getCows()}
+    {console.log(this.state.cowList)}
+  }
+
+  getCows() {
+    axios.get('/api/cows')
+    .then((response) => {
+      // console.log(response.data);
+      for (let i = 0; i < response.data.length; i++) {
+        this.state.cowList.push(response.data[i]);
+      }
+    })
+    .catch((error) => console.log('Error with GET request: ', error))
   }
 
   render() {
