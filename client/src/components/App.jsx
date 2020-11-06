@@ -1,63 +1,27 @@
 import React from 'react';
 import List from './List.jsx'
 import Spotlight from './Spotlight.jsx'
+import Submit from './Submit.jsx'
 import axios from 'axios';
 
 class App extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      cow_name: '',
-      cow_description: ''
+      cowList: []
     }
-    this.onSubmit = this.onSubmit.bind(this);
-    this.onNameChange = this.onNameChange.bind(this);
-    this.onDescriptionChange = this.onDescriptionChange.bind(this);
-  }
-
-  onNameChange(event) {
-    event.preventDefault();
-    this.setState({cow_name: event.target.value});
-  }
-
-  onDescriptionChange(event) {
-    event.preventDefault();
-    this.setState({cow_description: event.target.value});
-  }
-
-  onSubmit(event) {
-    event.preventDefault()
-    axios.post('/api/cows', {cow_name: this.state.cow_name, cow_description: this.state.cow_description})
-    .then(response => {console.log(response)})
-    .catch(error => {console.log('Error with Axios POST request: ', error)});
   }
 
   render() {
-    {console.log(this.state.cow_name)}
-    {console.log(this.state.cow_description)}
     return (
     <div className='container'>
       <Spotlight />
       <br />
-      <div>
-        <h1>Tell us about your cow:</h1>
-
-        <form className='form-container' onSubmit={(event) => this.onSubmit(event)}>
-          <input type="text" placeholder="Name" name='cow_name' onChange={this.onNameChange} />
-          <br />
-          <textarea rows='4' cols='50' placeholder='Description' name='cow_description' onChange={this.onDescriptionChange} />
-          <input type='submit' />
-        </form>
-
-      </div>
-
+      <Submit />
+      <br />
       <List />
-      <div>
-        <h1>In Progress: Getting from Cow Database</h1>
-      </div>
-
     </div>
-    );
+    )
   }
 }
 
