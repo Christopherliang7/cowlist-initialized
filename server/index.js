@@ -1,13 +1,15 @@
 const express = require('express')
 const db = require('../db/mysql.js').dbConnection;
 const models = require('../models/model.js');
+// const cors = require('cors')
 // const controllers = require('../controllers/controller.js')
 
 const app = express()
 const port = 3000
 
 app.use(express.json());
-app.use(express.static('./client/dist'))
+app.use(express.static('./client/dist'));
+// app.use(cors());
 
 db.connect();
 

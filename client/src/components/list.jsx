@@ -1,9 +1,9 @@
 import React from 'react';
 
-function List() {
+function List(props) {
   return (
     <div>
-      <h1>List of prior cows:</h1>
+      <h1>List of cows for sale:</h1>
       <br />
       <ul>
         <li>Cow Name 1</li>
