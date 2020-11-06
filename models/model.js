@@ -23,5 +23,26 @@ module.exports = {
         res.send('Success with POST request!');
       }
     })
+  },
+  put: function(req, res) {
+    let putquery = "UPDATE cows SET cow_name = (?), cow_description = (?) WHERE id = (?);";
+    console.log(req.body);
+    db.query(putquery, [req.body.cow_name, req.body.cow_description, req.params.id], (error, result) => {
+      if (error) {
+        console.log('Error with PUT request: ', error)
+      } else {
+        res.send('Success with PUT request!');
+      }
+    })
+  },
+  delete: function(req, res) {
+    let deletequery = "DELETE FROM cows WHERE cows.id=(?);";
+    db.query(deletequery, [req.params.id], (error, result) => {
+      if (error) {
+        console.log('Error with DELETE request: ', error)
+      } else {
+        res.send('Success with DELETE request!');
+      }
+    })
   }
-};
+}

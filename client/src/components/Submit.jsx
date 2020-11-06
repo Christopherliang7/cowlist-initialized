@@ -12,6 +12,7 @@ class Submit extends React.Component {
     this.onSubmit = this.onSubmit.bind(this);
     this.onNameChange = this.onNameChange.bind(this);
     this.onDescriptionChange = this.onDescriptionChange.bind(this);
+    // this.cowUpdated = this.cowUpdated.bind(this);
   }
 
   onNameChange(event) {
@@ -28,8 +29,11 @@ class Submit extends React.Component {
     event.preventDefault()
     axios.post('/api/cows', {cow_name: this.state.cow_name, cow_description: this.state.cow_description})
     .then(response => {console.log(response)})
+    .then(this.props.getCows())
     .catch(error => {console.log('Error with Axios POST request: ', error)});
   }
+
+
 
   render() {
     return (

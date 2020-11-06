@@ -9,16 +9,17 @@ class App extends React.Component {
     super(props)
     this.state = {
       cowList: [],
-      spotlightName: '',
-      spotlightDescription: ''
+      selectiveCow: {id: 0, cow_name: '', cow_description: ''}
     }
     this.getCows = this.getCows.bind(this)
     this.cowClicked = this.cowClicked.bind(this)
+    this.cowDeleted = this.cowDeleted.bind(this)
+    // this.cowUpdated = this.cowUpdated.bind(this)
   }
 
   componentDidMount() {
     this.getCows()
-    console.log(this.state.cowList)
+    // console.log(this.state.cowList)
   }
 
   getCows() {
@@ -35,32 +36,38 @@ class App extends React.Component {
   }
 
   cowClicked(cowItem) {
-    console.log(cowItem);
-    this.setState({spotlightName: cowItem.cow_name, spotlightDescription: cowItem.cow_description})
+    // console.log(cowItem);
+    this.setState({selectiveCow: {id: cowItem.id, cow_name: cowItem.cow_name, cow_description: 
+      cowItem.cow_description}})
+    // console.log('THIS IS SELECTIVE COW: ', this.state.selectiveCow)
+  }
+
+  cowDeleted(cowItem) {
+    axios.delete(`./api/cows/${cowItem.id}`)
+    .then(this.getCows())
+    .catch((error) => ('Error with Delete Request: ', error))
   }
 
   render() {
     return (
     <div className='container'>
-      <Spotlight />
-      <p>{this.state.spotlightName}</p>
-      <p>{this.state.spotlightDescription}</p>
+      <Spotlight cowItem={this.state.selectiveCow}/>
+      {/* {this.state.selectiveCow.cow_name} */}
       <br />
-      <Submit />
+      <Submit getCows={this.getCows}/>
       <br />
       <h1>List of Cows:</h1>
       {this.state.cowList.map(cowItem => {
-        console.log(cowItem)
         return (
           <div>
             <button onClick={() => this.cowClicked(cowItem)}>
               <p>{cowItem.cow_name}</p>
             </button>
+            <button onClick={() => this.cowDeleted(cowItem)}>Delete</button>
           </div>
         )
       })}
 
-      {/* <List cowList={this.state.cowList}/> */}
     </div>
     )
   }

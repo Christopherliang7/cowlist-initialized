@@ -25,5 +25,13 @@ app.get('/api/cows', (req, res) => {
   models.get(req, res);
 });
 
+app.put('/api/cows/:id', (req, res) => {
+  models.put(req, res);
+});
+
+app.delete('/api/cows/:id', (req, res) => {
+  console.log(req.params.id)
+  models.delete(req, res);
+});
 
 app.listen(port, () => console.log(`App listening on port ${port}!`))
